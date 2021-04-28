@@ -1,2 +1,2 @@
-# GrimAgent malware tools
+# GrimAgent malware
 
