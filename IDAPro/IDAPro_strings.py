@@ -81,11 +81,11 @@ i = 0
 for x in XrefsTo(decrypt_strings_func, flags=0):
 	key_size,addr_encrypted_string,encrypted_string_len = find_function_arg(x.frm)
 	if i < 2:
-		#usage of the second half of decrypted key to decrypt first two strings
+		#usage of first key
 		decrypted = decrypt_strings1(key1,key_size,addr_encrypted_string,encrypted_string_len)
 		i += 1
 	else:
-		#usage of the full decrypted key
+		#usage of second key
 		decrypted = decrypt_strings1(key2,key_size,addr_encrypted_string,encrypted_string_len)
 	idaapi.set_cmt(x.frm, decrypted,0)
 	idaapi.set_name(addr_encrypted_string,decrypted,1)
