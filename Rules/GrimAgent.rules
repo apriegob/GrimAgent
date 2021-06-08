@@ -1,0 +1,25 @@
+alert http $HOME_NET any -> $EXTERNAL_NET any (
+	msg:"GrimAgent C2 Activity";
+	target:src_ip;
+	flow:established,to_server;
+	content:"POST";
+	http_method;
+	content:"/gate.php";
+	http_uri;
+	isdataat:!1,relative;
+	content:"|0d 0a|Keep-Alive|3a 20|"; http_header; content:"|0d 0a|Connection|3a 20|keep-alive|0d 0a|Referer|3a 20|https|3a 2f 2f|www.";
+	http_header;
+	distance:3;
+	within:50;
+	pcre:"/^(?:amazon|ebay|google|microsoft|youtube)\.com\x0d\x0a/RHi";
+	pcre:"/^[A-z0-9]{5,25}=[a-f0-9]{25,}$/Ps"; 
+	content:!"&"; 
+	http_client_body; 
+	reference:md5,6f18e0da3b4e16e66929fbf8626381b8;
+	classtype:trojan-activity;
+	sid:1004266;
+	rev:3;
+	metadata:updated_at 2021_05_02,malware_family GrimAgent,severity 3,ti_malware_id d4ad8c563394edba21f8acad2bb722b13beb2630,ti_malware_name Grimagent,rule_origin gib;
+	)
+
+
